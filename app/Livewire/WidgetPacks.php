@@ -26,6 +26,7 @@ class WidgetPacks extends Component
             $pack = WidgetPack::create(['amount'=>$this->editing_amount]);
         
         if (!$this->editing_available) {
+            $pack->save();
             $pack->delete();
         }else{
             $pack->deleted_at = null;
