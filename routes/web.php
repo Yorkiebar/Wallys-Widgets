@@ -23,6 +23,14 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect(route('orders'));
     })->name('dashboard');
+
+    Route::get('/orders', function () {
+        return view('orders');
+    })->name('orders');
+
+    Route::get('/widget-packs', function () {
+        return view('widget-packs');
+    })->name('widget-packs');
 });
