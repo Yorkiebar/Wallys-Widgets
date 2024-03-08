@@ -20,6 +20,8 @@ class WidgetPacks extends Component
         
         if ($this->editing_id) {
             $pack = WidgetPack::withTrashed()->where('id', $this->editing_id)->first();
+            if ($pack->orderLinkers()->count() <= 0)
+                $pack->amount = $this->editing_amount;
         }else
             $pack = WidgetPack::create(['amount'=>$this->editing_amount]);
         
