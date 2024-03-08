@@ -1,26 +1,28 @@
 <div>
-    {{-- Stop trying to control. --}}
+    {{-- Do your work, then step back. --}}
     <div class="text-right">
-        <x-button wire:click="openAddNewPack()">Add Pack</x-button>
+        <x-button wire:click="openAddNewOrder()">Add Order</x-button>
     </div>
     <table class='mt-4'>
         <thead>
             <tr>
+                <th>Date</th>
+                <th>Customer</th>
                 <th>Amount of Widgets</th>
-                <th>Currently Available</th>
-                <th></th>
+                <th>Packs Used</th>
             </tr>
         </thead>
         <tbody>
-            @forelse($widgetPacks as $widgetPack)
+            @forelse($orders as $order)
                 <tr>
-                    <td>{!! $widgetPack->amount !!}</td>
-                    <td>{!! $widgetPack->deleted_at ? 'No' : 'Yes' !!}</td>
-                    <td><i class="fa fa-regular fa-pen-to-square" wire:click="editPack({!! $widgetPack->id !!})"></i></td>
+                    <td>{!! $order->created_at->format('gS F Y H:ia') !!}</td>
+                    <td>{!! $order->customer_name !!}</td>
+                    <td>{!! $order->order_amount !!}</td>
+                    <td>{!! $order->packsStr !!}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="2">No packs currently available...</td>
+                    <td colspan="4">No orders currently available...</td>
                 </tr>
             @endforelse
         </tbody>
@@ -29,21 +31,21 @@
     @once
         <x-dialog-modal wire:model.live="editing">
             <x-slot name="title">
-                {!! $editing_id ? 'Editing' : 'Creating' !!} Widget Pack
+                Adding Order
             </x-slot>
 
             <x-slot name="content">
                 <div class="mt-4 half-block">
-                    <x-label for="editing_amount">Widgets in Pack</x-label>
+                    <x-label for="editing_customer">Customer Name</x-label>
+                    <x-input type="text" class="mt-1 block w-3/4" 
+                                wire:model="editing_customer" />
+                    <x-input-error for="editing_customer" class="mt-2" />
+                </div>
+                <div class="mt-4 half-block">
+                    <x-label for="editing_amount">Amount of Widgets</x-label>
                     <x-input type="number" min=1 class="mt-1 block w-3/4" placeholder="{{ __('10') }}" 
                                 wire:model="editing_amount" />
                     <x-input-error for="editing_amount" class="mt-2" />
-                </div>
-                <div class="mt-4 half-block">
-                    <x-label for="editing_available">Currently Available?</x-label>
-                    <x-input type="checkbox" class="mt-1 block" 
-                                wire:model="editing_available" />
-                    <x-input-error for="editing_available" class="mt-2" />
                 </div>
             </x-slot>
 

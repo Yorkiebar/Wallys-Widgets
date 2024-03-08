@@ -42,10 +42,10 @@ class WidgetPacks extends Component
     }
 
     public function resetNewPackModal() {
+        $this->editing = false;
         $this->editing_id = null;
         $this->editing_amount = null;
         $this->editing_available = false;
-        $this->editing = false;
     }
 
     public function render()
