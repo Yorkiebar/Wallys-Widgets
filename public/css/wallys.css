@@ -19,3 +19,14 @@ i.fa {cursor: pointer;}
     display: inline-block;
     vertical-align: top;
 }
+
+.small-note {
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+nav[role="navigation"]>div>div>span * {
+    background: white;
+    border-color: #e8e8e8;
+}

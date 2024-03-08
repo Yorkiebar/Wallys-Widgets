@@ -27,6 +27,8 @@
             @endforelse
         </tbody>
     </table>
+    <br/>
+    {!! $orders->links() !!}
 
     @once
         <x-dialog-modal wire:model.live="editing">

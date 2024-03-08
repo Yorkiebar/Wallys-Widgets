@@ -12,4 +12,9 @@ class WidgetPack extends Model
     use SoftDeletes;
 
     protected $fillable = ['amount'];
+
+    /** Relationships */
+    public function orderLinkers() {
+        return $this->hasMany(OrderPackLinker::class, 'pack_id', 'id');
+    }
 }

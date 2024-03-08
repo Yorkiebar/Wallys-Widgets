@@ -30,7 +30,7 @@ class Orders extends Component
         $order->customer_name = $this->editing_customer;
         $order->order_amount = $this->editing_amount;
         $order->save();
-        // $order->calculatePacks();
+        $order->calculatePacks();
 
         $this->resetOrderModal();
     }

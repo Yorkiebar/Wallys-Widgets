@@ -25,6 +25,8 @@
             @endforelse
         </tbody>
     </table>
+    <br/>
+    {!! $widgetPacks->links() !!}
 
     @once
         <x-dialog-modal wire:model.live="editing">
@@ -35,8 +37,15 @@
             <x-slot name="content">
                 <div class="mt-4 half-block">
                     <x-label for="editing_amount">Widgets in Pack</x-label>
-                    <x-input type="number" min=1 class="mt-1 block w-3/4" placeholder="{{ __('10') }}" 
-                                wire:model="editing_amount" />
+                    @if($editing_id && $editing_used_in_orders)
+                        <x-input type="number" min=1 class="mt-1 block w-3/4" placeholder="{{ __('10') }}" 
+                                    wire:model="editing_amount"
+                                    disabled />
+                        <p class="small-note w-3/4">This pack is used in an order and can not be edited</p>
+                    @else
+                        <x-input type="number" min=1 class="mt-1 block w-3/4" placeholder="{{ __('10') }}" 
+                                    wire:model="editing_amount" />
+                    @endif
                     <x-input-error for="editing_amount" class="mt-2" />
                 </div>
                 <div class="mt-4 half-block">

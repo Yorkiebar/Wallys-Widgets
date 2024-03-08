@@ -7,7 +7,7 @@ use App\Models\WidgetPack;
 
 class WidgetPacks extends Component
 {
-    public bool $editing=false, $editing_available=false;
+    public bool $editing=false, $editing_available=true, $editing_used_in_orders=false;
     public $editing_id, $editing_amount;
 
     public function openAddNewPack() {
@@ -38,6 +38,7 @@ class WidgetPacks extends Component
         $this->editing_id = $pack->id;
         $this->editing_amount = $pack->amount;
         $this->editing_available = ($pack->deleted_at == null);
+        $this->editing_used_in_orders = ($pack->orderLinkers->count() > 0);
         $this->editing = true;
     }
 
@@ -45,12 +46,13 @@ class WidgetPacks extends Component
         $this->editing = false;
         $this->editing_id = null;
         $this->editing_amount = null;
-        $this->editing_available = false;
+        $this->editing_used_in_orders = false;
+        $this->editing_available = true;
     }
 
     public function render()
     {
-        $widgetPacks = WidgetPack::withTrashed()->get();
+        $widgetPacks = WidgetPack::withTrashed()->paginate(20);
         return view('livewire.widget-packs', compact('widgetPacks'));
     }
 }
